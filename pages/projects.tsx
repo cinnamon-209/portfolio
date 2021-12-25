@@ -2,15 +2,23 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
 import { Avatar, Button, Center, Circle, Container, Grid, GridItem, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import Link from 'next/link'
 import { useState } from 'react'
-import ProjectPageContent from './project_content'
+import ProjectList from './project_list'
 
-const ProjectPage: NextPage = () => {
-  let defaultProjectType: string = 'School Project'; 
-  const [projectType, setProjectType] = useState<string>(defaultProjectType);
+import { gql } from "@apollo/client";
+import client from "../apollo/apollo-client";
+import {Category} from '../models/dtos'; 
 
-  const switchProjectType = (projectType: string) => {
-    console.log(projectType); 
+
+export default function ProjectPage({categories} : any) {
+
+  console.log(categories)
+
+  let defaultProjectType: Category = categories[0]; 
+  const [projectType, setProjectType] = useState<Category>(defaultProjectType);
+
+  const switchProjectType = (projectType: Category) => {
     setProjectType(projectType)
   }
 
@@ -20,34 +28,64 @@ const ProjectPage: NextPage = () => {
           <title>{"CG's Project"}</title>
           <meta name="description" content="CG project" />
           <link rel="icon" href="/favicon.ico" />
-        </Head>
-
-        <Container>
+      </Head>
+      <div>
         <Center pt='1em' pb='1em' >
-          <Button>
-            Back
+          <Button mr='1em'>
+            <Link href="/">Back</Link>
           </Button>
           <Menu>
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-              {projectType}
+              {projectType.name}
             </MenuButton>
             <MenuList >
-              {/* for loop to be inserted here with the project type */}
-              <MenuItem minH='48px' onClick={() => switchProjectType('School Projects')}>
-                <span>School Projects</span>
-              </MenuItem>
-              <MenuItem minH='40px' onClick={() => switchProjectType('Personal Projects')}>
-                <span>Personal Projects</span>
-              </MenuItem>
+              {
+                categories.map((m: Category) => (
+                  <MenuItem key={m.id} minH='48px' onClick={() => switchProjectType(m)}>
+                    <span>{m.name}</span>
+                  </MenuItem>
+                  )
+                )
+              }
             </MenuList>
           </Menu>
         </Center>
-        </Container>
+        </div>
 
-        <ProjectPageContent />
+        <ProjectList content={projectType.articles}/>
 
       </>
     )
   }
 
-export default ProjectPage
+
+export async function getServerSideProps() {
+  // one query to rule them all 
+  const { data } = await client.query({
+    query: gql`
+      query {
+        categories {
+          id
+          name
+          articles {
+            id 
+            title
+            techStack
+            description
+            image {
+              url 
+            }
+            reflection
+            links
+          }
+        }
+      }
+    `,
+  });
+
+  return {
+    props: {
+      categories: data.categories,
+    },
+  };
+}

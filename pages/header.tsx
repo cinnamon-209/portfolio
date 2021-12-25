@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const Header = () => (
   <header>
-        <Button> 
+        <Button size="lg"> 
           <Link href="/projects/">
             <a>Projects</a>
           </Link>

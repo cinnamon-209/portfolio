@@ -40,7 +40,7 @@ return (
       target="_blank"
       rel="noopener noreferrer"
       >
-        <FontAwesomeIcon icon={faLinkedin} className={styles.logo}/>
+        <FontAwesomeIcon icon={faLinkedin} size="10x" className={styles.logo}/>
       </a>
       <a 
       href="https://github.com/chuangeng555"
