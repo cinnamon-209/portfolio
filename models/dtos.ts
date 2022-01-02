@@ -16,7 +16,7 @@ export interface Article {
   description: string
   techStack: string
   reflection: string
-  links: JSON
+  links: any
 }
 
 

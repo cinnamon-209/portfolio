@@ -6,7 +6,6 @@ import {Article} from '../models/dtos';
 
 
 export default function Project(props: any) {
-
   const onCloseModal = () => {
     props.closeModal(false);
   }
@@ -18,13 +17,21 @@ export default function Project(props: any) {
         onClose={() => onCloseModal()}
         isOpen={props.openModal}
         motionPreset='slideInBottom'
+        scrollBehavior={"inside"}
+        size="4xl"
       >
         <ModalOverlay />
         <ModalContent> 
           <ModalHeader>{props.projectData.title}</ModalHeader>
           <ModalCloseButton />
             <ModalBody>
+              <h1><b>{"Description"}</b></h1>
+            </ModalBody>
+            <ModalBody>
               {props.projectData.description}
+            </ModalBody>
+            <ModalBody>
+              <h1><b>{"Reflection"}</b></h1>
             </ModalBody>
             <ModalBody>
               {props.projectData.reflection}

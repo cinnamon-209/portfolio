@@ -1,5 +1,6 @@
-import { Image, Box, Button, Center, Container, Grid, GridItem, Text } from '@chakra-ui/react'
+import { Image, Box, Button, Center, Container, Grid, GridItem, Text, Badge } from '@chakra-ui/react'
 import type { NextPage } from 'next'
+import Link from 'next/link';
 import { useState } from 'react';
 import {Article} from '../models/dtos'; 
 import Project from './project'
@@ -20,7 +21,8 @@ export default function ProjectList(props : any) {
   return (
     <>
       {openProjectModal ? <Project projectData={projectModalData} openModal={openProjectModal} closeModal={handleCloseModal} /> : ""}
-      <Container maxW='3xl' centerContent color='white.200'  borderColor='gray.200' border='1px'>
+      <Container maxW='5xl' centerContent >
+      {/* centerContent color='white.200'  borderColor='gray.200' border='1px' */}
         {
           props.content == 0 ? <Center>{"Projects not available"}</Center> : 
             <Grid
@@ -32,11 +34,43 @@ export default function ProjectList(props : any) {
                 {
                   props.content.map((m : Article) => 
                   <GridItem bg='dark' key={m.id}>
-                        <Box padding='4' boxShadow='lg' bg='white' overflow='hidden' onClick={() => openProject(m)}>
-                          {/* <Image src={"http://localhost:1337" + m.image.url} alt={m.title} /> */}
-                          <Text mt='4' noOfLines={5} spacing='4' color={"black"}>{m.title}</Text>
-                          <Text mt='4' noOfLines={10} spacing='4' color={"black"}>{m.techStack}</Text>
+                    {/* w={[300, 400, 500]} h={[300, 400, 500]} */}
+                        <Box maxW='sm' borderWidth='2px'   borderRadius='lg' p='1em' boxShadow='lg' overflow='hidden' onClick={() => openProject(m)} _hover={{ bg: "teal.600" }} style={{cursor: 'pointer'}}>
+                          {/* swap with the env url later on */}
+                            {/* <Image src={"http://localhost:1337" + m.image.url} alt={m.title} /> */}
+                            <Box
+                            m='1'
+                            fontWeight='semibold'
+                            as='h4'
+                            lineHeight='tight'
+                            isTruncated 
+                            >
+                            {m.title}
+                            </Box>
+                            {m.techStack.split(',').map((t) => 
+                                <Badge key={t} borderRadius='full' px='3' p='1' m='0.5' colorScheme='teal'>
+                                  {t}
+                                </Badge>
+                            )}
                         </Box>
+                        <Grid
+                          pt='1em'
+                          pb='1em'
+                          templateColumns='repeat(2, 1fr)'
+                          gap={6}>
+                             {
+                               m.links == null ? "" : 
+                                Object.keys(m.links).map((k : string) => 
+                                <Button key={k}>
+                                  <Link href={m.links[k]}>
+                                    {k}
+                                  </Link>
+                                </Button>  
+                               )
+                             }
+                        </Grid>
+
+
                   </GridItem>
                   )
                 }

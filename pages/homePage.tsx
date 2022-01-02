@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faGithub, faLinkedin} from '@fortawesome/free-brands-svg-icons'
 import styles from '../styles/Index.module.css'
 
-const HomePageContent: NextPage = () => {
+
+export default function HomePageContent({homePageContent} : any) {
 
 return (
   <div>
@@ -18,17 +19,14 @@ return (
       >
         <GridItem rowSpan={2} colSpan={1} >
               <Center pl='1vh' pt='15vh'>
-                <Avatar size='2xl' name='Dan Abrahmov' src='https://bit.ly/dan-abramov' />
+                <Avatar size='2xl' name='Chuan Geng' src={"http://localhost:1337"+ homePageContent.profilePic.url} />
               </Center>
         </GridItem>
-        <GridItem rowSpan={2} colSpan={4} >
+        <GridItem rowSpan={2} colSpan={3} >
           <Text fontSize='xl' pt='15vh' textAlign={[ 'center' ]} color='white'> 
-                {
-                  `Hi, my name is Chuan Geng ~ CG , a final year Singapore Management University (SMU) student.
-                  Currently in Bachelor's degree in Information system graduating in 2022.
-                  Love to build stuff and have fun while doing so ! 
-                  `
-                }
+            {
+              homePageContent.about
+            }
             </Text>
         </GridItem>
       </Grid>
@@ -53,5 +51,3 @@ return (
   </div>
   )
 }
-
-export default HomePageContent

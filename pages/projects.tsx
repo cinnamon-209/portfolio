@@ -5,16 +5,13 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useState } from 'react'
 import ProjectList from './project_list'
-
 import { gql } from "@apollo/client";
 import client from "../apollo/apollo-client";
+
 import {Category} from '../models/dtos'; 
 
 
 export default function ProjectPage({categories} : any) {
-
-  console.log(categories)
-
   let defaultProjectType: Category = categories[0]; 
   const [projectType, setProjectType] = useState<Category>(defaultProjectType);
 
@@ -59,6 +56,8 @@ export default function ProjectPage({categories} : any) {
   }
 
 
+
+
 export async function getServerSideProps() {
   // one query to rule them all 
   const { data } = await client.query({
@@ -78,14 +77,14 @@ export async function getServerSideProps() {
             reflection
             links
           }
-        }
+        } 
       }
     `,
-  });
+  })
 
   return {
     props: {
-      categories: data.categories,
+      categories: data.categories
     },
   };
 }
