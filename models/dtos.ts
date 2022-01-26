@@ -1,22 +1,17 @@
 export interface Category {
-  id: string
-  name: string
-  articles: Article[]
+  name: string 
 }
 
-export interface UploadFile{
-  url: string
-}
+// export interface UploadFile{
+//   url: string
+// }
 
-export interface Article {
-  id: string
-  title: string
-  image: UploadFile
-  category: Category
-  description: string
-  techStack: string
-  reflection: string
-  links: any
-}
+// export interface Article {
+//   title: string
+//   description: string
+//   body: string
+//   heroImage: string
+//   tags: string[]
+// }
 
 

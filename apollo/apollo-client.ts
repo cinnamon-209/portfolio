@@ -1,14 +1,26 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloLink, HttpLink } from "@apollo/client";
 
-export function getStrapiURL(path = "") {
-  return `${
-    process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337/graphql"
-  }${path}`;
-}
+// export default client;
+const httpLink = new HttpLink({ uri: process.env.GRAPHQL_URL });
+
+export const authLink = new ApolloLink((operation, forward) => {
+  // Retrieve the authorization token from local storage.
+  const token = process.env.TOKEN;
+
+  // Use the setContext method to set the HTTP headers.
+  operation.setContext({
+    headers: {
+      authorization: token ? `Bearer ${token}` : ''
+    }
+  });
+
+  // Call the next link in the middleware chain.
+  return forward(operation);
+});
 
 const client = new ApolloClient({
-    uri: getStrapiURL(),
-    cache: new InMemoryCache(),
+  link: authLink.concat(httpLink), // Chain it with the HttpLink
+  cache: new InMemoryCache()
 });
 
 export default client;

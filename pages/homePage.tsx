@@ -19,13 +19,13 @@ return (
       >
         <GridItem rowSpan={2} colSpan={1} >
               <Center pl='1vh' pt='15vh'>
-                <Avatar size='2xl' name='Chuan Geng' src={"http://localhost:1337"+ homePageContent.profilePic.url} />
+                <Avatar size='2xl' name='Chuan Geng' src={homePageContent.image.url} />
               </Center>
         </GridItem>
         <GridItem rowSpan={2} colSpan={3} >
           <Text fontSize='xl' pt='15vh' textAlign={[ 'center' ]} color='white'> 
             {
-              homePageContent.about
+              homePageContent.shortBio
             }
             </Text>
         </GridItem>
@@ -34,14 +34,14 @@ return (
 
     <Center pt='1em' pb='1em' >
       <a 
-      href="https://www.linkedin.com/in/foo-chuan-geng/"
+      href={homePageContent.linkedin}
       target="_blank"
       rel="noopener noreferrer"
       >
         <FontAwesomeIcon icon={faLinkedin} size="10x" className={styles.logo}/>
       </a>
       <a 
-      href="https://github.com/chuangeng555"
+      href={homePageContent.github}
       target="_blank"
       rel="noopener noreferrer"
       >

@@ -3,19 +3,24 @@ import { Avatar, Button, Center, Circle, Container, Grid, GridItem, Menu, MenuBu
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ProjectList from './project_list'
 import { gql } from "@apollo/client";
 import client from "../apollo/apollo-client";
-
 import {Category} from '../models/dtos'; 
 
+export default function ProjectPage(data) {
+  const [categories, setCategories] = useState<Category[]>([])
+  const [blogPosts, setBlogPosts] = useState([])
+  const [projectType, setProjectType] = useState<string>("");
 
-export default function ProjectPage({categories} : any) {
-  let defaultProjectType: Category = categories[0]; 
-  const [projectType, setProjectType] = useState<Category>(defaultProjectType);
+  useEffect(() => {
+    setBlogPosts(data.blogPosts)
+    setCategories(data.categories)
+    setProjectType(data.categories[0].name)
+  }, [])
 
-  const switchProjectType = (projectType: Category) => {
+  const switchProjectType = (projectType: string) => {
     setProjectType(projectType)
   }
 
@@ -33,12 +38,12 @@ export default function ProjectPage({categories} : any) {
           </Button>
           <Menu>
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-              {projectType.name}
+              {projectType}
             </MenuButton>
             <MenuList >
               {
                 categories.map((m: Category) => (
-                  <MenuItem key={m.id} minH='48px' onClick={() => switchProjectType(m)}>
+                  <MenuItem key={m.name} minH='48px' onClick={() => switchProjectType(m.name)}>
                     <span>{m.name}</span>
                   </MenuItem>
                   )
@@ -49,42 +54,46 @@ export default function ProjectPage({categories} : any) {
         </Center>
         </div>
 
-        <ProjectList content={projectType.articles}/>
+        {
+          <ProjectList content={blogPosts.filter((blog: any) => blog.author.name == projectType)}/>
+        }
 
       </>
     )
   }
 
-
-
-
 export async function getServerSideProps() {
   // one query to rule them all 
   const { data } = await client.query({
     query: gql`
-      query {
-        categories {
-          id
+    query {
+      personCollection {
+        items {
           name
-          articles {
-            id 
-            title
-            techStack
-            description
-            image {
-              url 
-            }
-            reflection
-            links
-          }
-        } 
+        }
       }
+      blogPostCollection {
+        items {
+          author {
+            name
+          }
+          title
+          description
+          body 
+          heroImage {
+            url
+          }
+          tags
+        }
+      }
+    }
     `,
   })
 
   return {
     props: {
-      categories: data.categories
+      categories: data.personCollection.items,
+      blogPosts: data.blogPostCollection.items
     },
   };
 }

@@ -8,6 +8,7 @@ import { gql } from "@apollo/client";
 import client from "../apollo/apollo-client";
 
 const Index: NextPage = ({homePage} : any) => {
+  console.log(homePage)
   return (
     <div className={styles.container}>
 
@@ -47,20 +48,27 @@ export async function getServerSideProps() {
   // one query to rule them all 
   const { data } = await client.query({
     query: gql`
-      query {
-        homePage(id:1){
-          about
-          profilePic {
+    query {
+      homeCollection(where :{name: "Chuan Geng"}) {
+        items {
+          name
+          title
+          shortBio
+          email
+          github
+          linkedin
+          image {
             url
           }
         }
       }
+    }
     `,
   })
 
   return {
     props: {
-      homePage: data.homePage,
+      homePage: data.homeCollection.items[0],
     },
   };
 }

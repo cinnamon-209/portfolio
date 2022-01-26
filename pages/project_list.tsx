@@ -1,21 +1,23 @@
 import { Image, Box, Button, Center, Container, Grid, GridItem, Text, Badge } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import Link from 'next/link';
-import { useState } from 'react';
-import {Article} from '../models/dtos'; 
+import { useState, useEffect } from 'react';
+// import {Article} from '../models/dtos'; 
 import Project from './project'
+import { gql } from "@apollo/client";
+import client from "../apollo/apollo-client";
 
 export default function ProjectList(props : any) {
   const [openProjectModal, setOpenProjectModal] = useState(false);
   const [projectModalData, setProjectModalData] = useState({});
 
-  const openProject = (projectData: Article) => {
+  const openProject = (projectData: any) => {
     setProjectModalData(projectData); 
     setOpenProjectModal(true);
   }
 
-  const handleCloseModal = (close: boolean) => {
-    setOpenProjectModal(close);
+  const handleCloseModal = () => {
+    setOpenProjectModal(false)
   }
 
   return (
@@ -32,12 +34,12 @@ export default function ProjectList(props : any) {
             gap={6}
             >
                 {
-                  props.content.map((m : Article) => 
+                  props.content.map((m : any) => 
                   <GridItem bg='dark' key={m.id}>
                     {/* w={[300, 400, 500]} h={[300, 400, 500]} */}
                         <Box maxW='sm' borderWidth='2px'   borderRadius='lg' p='1em' boxShadow='lg' overflow='hidden' onClick={() => openProject(m)} _hover={{ bg: "teal.600" }} style={{cursor: 'pointer'}}>
                           {/* swap with the env url later on */}
-                            {/* <Image src={"http://localhost:1337" + m.image.url} alt={m.title} /> */}
+                            <Image src={m.heroImage.url} alt={m.title} />
                             <Box
                             m='1'
                             fontWeight='semibold'
@@ -47,7 +49,7 @@ export default function ProjectList(props : any) {
                             >
                             {m.title}
                             </Box>
-                            {m.techStack.split(',').map((t) => 
+                            {m.tags.map((t) => 
                                 <Badge key={t} borderRadius='full' px='3' p='1' m='0.5' colorScheme='teal'>
                                   {t}
                                 </Badge>
@@ -69,14 +71,13 @@ export default function ProjectList(props : any) {
                                )
                              }
                         </Grid>
-
-
                   </GridItem>
                   )
                 }
             </Grid>
         }
       </Container>
+
     </>
     )
   }

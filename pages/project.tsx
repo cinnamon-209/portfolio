@@ -34,7 +34,7 @@ export default function Project(props: any) {
               <h1><b>{"Reflection"}</b></h1>
             </ModalBody>
             <ModalBody>
-              {props.projectData.reflection}
+              {props.projectData.body}
             </ModalBody>
           <ModalFooter>
           </ModalFooter>
