@@ -4,6 +4,9 @@ import {faGithub, faLinkedin} from '@fortawesome/free-brands-svg-icons'
 import styles from '../styles/Index.module.css'
 
 import { createBreakpoints } from '@chakra-ui/theme-tools'
+import {useState} from "react";
+
+import {HomePage} from "../models/dtos";
 
 const heightBreakpoints = createBreakpoints({
     sm: '30em',
@@ -22,10 +25,17 @@ const widthBreakPoints = createBreakpoints({
 })
 
 
+export default function HomePageContent({data} : any) {
+    const [homePageData, setHomePageData] = useState<HomePage | null >(null)
 
-export default function HomePageContent({homePageContent} : any) {
+    useState(()=>{
+        setHomePageData(data)
+    })
 
 return (
+    <>
+        {
+            homePageData != undefined || homePageData != null ?
   <div>
     <Center bg='#171717' h={heightBreakpoints} w={widthBreakPoints} color='dark'>
       <Grid
@@ -37,13 +47,13 @@ return (
       >
         <GridItem rowSpan={2} colSpan={1} pl='13vh'>
               <Center pl='1vh' pt='15vh'>
-                <Avatar size='2xl' name='Chuan Geng' src={homePageContent.image.url} />
+                <Avatar size='2xl' name={homePageData.name} src={homePageData.image.url} />
               </Center>
         </GridItem>
         <GridItem rowSpan={2} colSpan={3} >
                 <Text fontSize='xl' textAlign={[ 'center' ]} color='white' pt='15vh' >
                     {
-                        homePageContent.shortBio
+                        homePageData.shortBio
                     }
               </Text>
         </GridItem>
@@ -52,14 +62,14 @@ return (
 
     <Center pt='1em' pb='1em' >
       <a 
-      href={homePageContent.linkedin}
+      href={homePageData.linkedin}
       target="_blank"
       rel="noopener noreferrer"
       >
         <FontAwesomeIcon icon={faLinkedin} size="10x" className={styles.logo}/>
       </a>
       <a 
-      href={homePageContent.github}
+      href={homePageData.github}
       target="_blank"
       rel="noopener noreferrer"
       >
@@ -67,5 +77,7 @@ return (
       </a>
     </Center>
   </div>
+        : "" }
+</>
   )
 }

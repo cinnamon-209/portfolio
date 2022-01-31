@@ -7,12 +7,13 @@ import { useEffect, useState } from 'react'
 import ProjectList from './project_list'
 import { gql } from "@apollo/client";
 import client from "../apollo/apollo-client";
-import {Category} from '../models/dtos'; 
+import {BlogPost, Category} from '../models/dtos';
 
 export default function ProjectPage(data : any) {
-  const [categories, setCategories] = useState<Category[]>([])
-  const [blogPosts, setBlogPosts] = useState([])
-  const [projectType, setProjectType] = useState<string>("");
+  console.log(data)
+  const [categories, setCategories] = useState<Category[] | undefined >(undefined)
+  const [blogPosts, setBlogPosts] = useState<BlogPost[] | undefined >(undefined)
+  const [projectType, setProjectType] = useState<string | undefined | null>("");
 
   useEffect(() => {
     setBlogPosts(data.blogPosts)
@@ -26,6 +27,9 @@ export default function ProjectPage(data : any) {
 
   return (
       <>
+        {
+          categories != undefined || blogPosts != undefined ?
+              <div>
       <Head>
           <title>{"CG's Project"}</title>
           <meta name="description" content="CG project" />
@@ -42,22 +46,29 @@ export default function ProjectPage(data : any) {
             </MenuButton>
             <MenuList >
               {
-                categories.map((m: Category) => (
-                  <MenuItem key={m.name} minH='48px' onClick={() => switchProjectType(m.name)}>
-                    <span>{m.name}</span>
-                  </MenuItem>
-                  )
-                )
+                categories != undefined ?
+                    <>
+                      {
+                        categories.map((m: Category) => (
+                                <MenuItem key={m.name} minH='48px' onClick={() => switchProjectType(m.name)}>
+                                  <span>{m.name}</span>
+                                </MenuItem>
+                            )
+                        )
+                      }
+                    </>
+                    : ""
               }
             </MenuList>
           </Menu>
         </Center>
         </div>
+                {
+                    blogPosts != undefined ? <ProjectList content={blogPosts.filter((blog: any) => blog.author.name == projectType)}/> : ""
+                }
+              </div>
 
-        {
-          <ProjectList content={blogPosts.filter((blog: any) => blog.author.name == projectType)}/>
-        }
-
+        : "" }
       </>
     )
   }

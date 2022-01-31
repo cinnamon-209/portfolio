@@ -8,11 +8,13 @@ import { gql } from "@apollo/client";
 import client from "../apollo/apollo-client";
 
 const Index: NextPage = ({homePage} : any) => {
-  console.log(homePage)
 
   return (
-    <div className={styles.container}>
+      <>
+          {
+              homePage != undefined || homePage != null ?
 
+    <div className={styles.container}>
       <Head>
         <title>{"CG's portfolio"}</title>
         <meta name="description" content="CG's portfolio" />
@@ -20,7 +22,7 @@ const Index: NextPage = ({homePage} : any) => {
       </Head>
 
       <main className={styles.main}>
-        <HomePageContent homePageContent={homePage}/> 
+        <HomePageContent data={homePage}/>
         <Header/>
       </main>
 
@@ -36,8 +38,9 @@ const Index: NextPage = ({homePage} : any) => {
           </span>
         </a>
       </footer>
-
-    </div>
+    </div> : ""
+          }
+      </>
   )
 }
 
