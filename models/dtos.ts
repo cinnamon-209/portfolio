@@ -23,6 +23,7 @@ export interface BlogPost{
   body: string,
   heroImage: Url,
   tags: string[]
+  links: string[]
 }
 
 export interface Author{

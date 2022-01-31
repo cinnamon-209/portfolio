@@ -1,12 +1,22 @@
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from '@chakra-ui/react'
+import {useState} from "react";
+import {BlogPost} from "../models/dtos";
 
 export default function Project(props: any) {
+  console.log(props)
+  const [projectData, setProjectData ] = useState<undefined | null | BlogPost>(undefined)
   const onCloseModal = () => {
     props.closeModal(false);
   }
 
+  useState(() => {
+    setProjectData(props.projectData);
+  })
+
   return (
     <>
+      {projectData != undefined ?
+      <>
       <Modal
         isCentered
         onClose={() => onCloseModal()}
@@ -17,24 +27,25 @@ export default function Project(props: any) {
       >
         <ModalOverlay />
         <ModalContent> 
-          <ModalHeader>{"" || props.projectData.title}</ModalHeader>
+          <ModalHeader>{projectData.title}</ModalHeader>
           <ModalCloseButton />
             <ModalBody>
               <h1><b>{"Description"}</b></h1>
             </ModalBody>
             <ModalBody>
-              {"" || props.projectData.description}
+              {projectData.description}
             </ModalBody>
             <ModalBody>
               <h1><b>{"Reflection"}</b></h1>
             </ModalBody>
             <ModalBody>
-              {"" || props.projectData.body}
+              {projectData.body}
             </ModalBody>
           <ModalFooter>
           </ModalFooter>
         </ModalContent>
       </Modal>
+      </> : "" }
     </>
     )
   }
