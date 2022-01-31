@@ -7,7 +7,6 @@ import {BlogPost} from "../models/dtos";
 export default function ProjectList(props : any) {
   const [openProjectModal, setOpenProjectModal] = useState(false);
   const [projectModalData, setProjectModalData] = useState<BlogPost | null | undefined>(undefined); // only one
-  // const [projectsData, setProjectsData] = useState<BlogPost[] | null | undefined>(undefined); // only one
 
   const openProject = (projectData: any) => {
     setProjectModalData(projectData);
@@ -18,6 +17,11 @@ export default function ProjectList(props : any) {
     setOpenProjectModal(false)
   }
 
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
   return (
     <>
       {
@@ -58,16 +62,16 @@ export default function ProjectList(props : any) {
                           pb='1em'
                           templateColumns='repeat(2, 1fr)'
                           gap={6}>
-                             {/*{*/}
-                             {/*  m.tags == null ? "" :*/}
-                             {/*   Object.keys(m.links).map((k : string) =>*/}
-                             {/*   <Button key={k}>*/}
-                             {/*     <Link href={m.links[k]}>*/}
-                             {/*       {k}*/}
-                             {/*     </Link>*/}
-                             {/*   </Button>*/}
-                             {/*  )*/}
-                             {/*}*/}
+                             {
+                               m.links == null ? "" :
+                                Object.keys(m.links).map((k : any) =>
+                                <Button key={k}>
+                                  <Link href={m.links[k]}>
+                                    {k}
+                                  </Link>
+                                </Button>
+                               )
+                             }
                         </Grid>
                   </GridItem>
                   )

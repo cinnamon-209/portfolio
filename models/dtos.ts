@@ -23,7 +23,11 @@ export interface BlogPost{
   body: string,
   heroImage: Url,
   tags: string[]
-  links: string[]
+  links: Link[]
+}
+
+export interface Link{
+  [key: string]: string
 }
 
 export interface Author{

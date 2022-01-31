@@ -95,6 +95,7 @@ export async function getServerSideProps() {
             url
           }
           tags
+          links
         }
       }
     }
