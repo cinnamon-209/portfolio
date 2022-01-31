@@ -2,7 +2,7 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
 import { Image, Avatar, Box, Button, Center, Circle, Container, Grid, GridItem, Menu, MenuButton, MenuItem, MenuList, SkeletonCircle, SkeletonText, Text, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import { useState } from 'react';
-import {Article} from '../models/dtos'; 
+// import {Article} from '../models/dtos'; 
 
 
 export default function Project(props: any) {

@@ -1,11 +1,7 @@
-import { Image, Box, Button, Center, Container, Grid, GridItem, Text, Badge } from '@chakra-ui/react'
-import type { NextPage } from 'next'
+import { Image, Box, Button, Center, Container, Grid, GridItem, Badge } from '@chakra-ui/react'
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
-// import {Article} from '../models/dtos'; 
+import { useState } from 'react';
 import Project from './project'
-import { gql } from "@apollo/client";
-import client from "../apollo/apollo-client";
 
 export default function ProjectList(props : any) {
   const [openProjectModal, setOpenProjectModal] = useState(false);
@@ -38,18 +34,17 @@ export default function ProjectList(props : any) {
                   <GridItem bg='dark' key={m.id}>
                     {/* w={[300, 400, 500]} h={[300, 400, 500]} */}
                         <Box maxW='sm' borderWidth='2px'   borderRadius='lg' p='1em' boxShadow='lg' overflow='hidden' onClick={() => openProject(m)} _hover={{ bg: "teal.600" }} style={{cursor: 'pointer'}}>
-                          {/* swap with the env url later on */}
                             <Image src={m.heroImage.url} alt={m.title} />
                             <Box
-                            m='1'
-                            fontWeight='semibold'
-                            as='h4'
-                            lineHeight='tight'
-                            isTruncated 
+                                m='1'
+                                fontWeight='semi-bold'
+                                as='h4'
+                                lineHeight='tight'
+                                // isTruncated
                             >
-                            {m.title}
+                              {m.title}
                             </Box>
-                            {m.tags.map((t) => 
+                            {m.tags.map((t: any) =>
                                 <Badge key={t} borderRadius='full' px='3' p='1' m='0.5' colorScheme='teal'>
                                   {t}
                                 </Badge>

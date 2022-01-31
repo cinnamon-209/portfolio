@@ -9,6 +9,7 @@ import client from "../apollo/apollo-client";
 
 const Index: NextPage = ({homePage} : any) => {
   console.log(homePage)
+
   return (
     <div className={styles.container}>
 

@@ -9,7 +9,7 @@ import { gql } from "@apollo/client";
 import client from "../apollo/apollo-client";
 import {Category} from '../models/dtos'; 
 
-export default function ProjectPage(data) {
+export default function ProjectPage(data : any) {
   const [categories, setCategories] = useState<Category[]>([])
   const [blogPosts, setBlogPosts] = useState([])
   const [projectType, setProjectType] = useState<string>("");
