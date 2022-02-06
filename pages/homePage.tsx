@@ -39,14 +39,14 @@ return (
             homePageData != undefined || homePageData != null ?
   <div>
       <Grid
-        h={heightBreakpoints}
-        w={widthBreakPoints}
+
         templateRows='repeat(1, 1fr)'
         templateColumns='repeat(5, 1fr)'
         // gap={4}
       >
         {/* bg='tomato' */}
-        <GridItem rowSpan={1} colSpan={5} >
+        <GridItem rowSpan={1} colSpan={5} 
+        >
           <Center >
             <Text fontSize='xl' textAlign={[ 'center' ]} color='white' >
                       {

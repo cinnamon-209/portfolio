@@ -17,11 +17,6 @@ export default function ProjectList(props : any) {
     setOpenProjectModal(false)
   }
 
-  // @ts-ignore
-  // @ts-ignore
-  // @ts-ignore
-  // @ts-ignore
-  // @ts-ignore
   return (
     <>
       {
@@ -34,7 +29,7 @@ export default function ProjectList(props : any) {
             <Grid
             pt='1em'
             pb='1em'
-            templateColumns='repeat(2, 1fr)'
+            templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)']}
             gap={6}
             >
                 {
