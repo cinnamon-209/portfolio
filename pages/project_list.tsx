@@ -7,7 +7,6 @@ import {BlogPost} from "../models/dtos";
 export default function ProjectList(props : any) {
   const [openProjectModal, setOpenProjectModal] = useState(false);
   const [projectModalData, setProjectModalData] = useState<BlogPost | null | undefined>(undefined); // only one
-  // const [projectsData, setProjectsData] = useState<BlogPost[] | null | undefined>(undefined); // only one
 
   const openProject = (projectData: any) => {
     setProjectModalData(projectData);
@@ -30,14 +29,14 @@ export default function ProjectList(props : any) {
             <Grid
             pt='1em'
             pb='1em'
-            templateColumns='repeat(2, 1fr)'
+            templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)']}
             gap={6}
             >
                 {
                   props.content.map((m : BlogPost) =>
                   <GridItem bg='dark' key={m.title}>
                         <Box maxW='sm' borderWidth='2px'   borderRadius='lg' p='1em' boxShadow='lg' overflow='hidden' onClick={() => openProject(m)} _hover={{ bg: "teal.600" }} style={{cursor: 'pointer'}}>
-                            <Image src={m.heroImage.url} alt={m.title} />
+                            {/*<Image src={m.heroImage.url} alt={m.title} />*/}
                             <Box
                                 m='1'
                                 fontWeight='semi-bold'
@@ -58,16 +57,16 @@ export default function ProjectList(props : any) {
                           pb='1em'
                           templateColumns='repeat(2, 1fr)'
                           gap={6}>
-                             {/*{*/}
-                             {/*  m.tags == null ? "" :*/}
-                             {/*   Object.keys(m.links).map((k : string) =>*/}
-                             {/*   <Button key={k}>*/}
-                             {/*     <Link href={m.links[k]}>*/}
-                             {/*       {k}*/}
-                             {/*     </Link>*/}
-                             {/*   </Button>*/}
-                             {/*  )*/}
-                             {/*}*/}
+                             {
+                               m.links == null ? "" :
+                                Object.keys(m.links).map((k : any) =>
+                                <Button key={k} isFullWidth>
+                                  <Link href={m.links[k]}>
+                                    {k}
+                                  </Link>
+                                </Button>
+                               )
+                             }
                         </Grid>
                   </GridItem>
                   )
