@@ -41,7 +41,7 @@ export default function ProjectList(props : any) {
                   props.content.map((m : BlogPost) =>
                   <GridItem bg='dark' key={m.title}>
                         <Box maxW='sm' borderWidth='2px'   borderRadius='lg' p='1em' boxShadow='lg' overflow='hidden' onClick={() => openProject(m)} _hover={{ bg: "teal.600" }} style={{cursor: 'pointer'}}>
-                            <Image src={m.heroImage.url} alt={m.title} />
+                            {/*<Image src={m.heroImage.url} alt={m.title} />*/}
                             <Box
                                 m='1'
                                 fontWeight='semi-bold'
@@ -65,7 +65,7 @@ export default function ProjectList(props : any) {
                              {
                                m.links == null ? "" :
                                 Object.keys(m.links).map((k : any) =>
-                                <Button key={k}>
+                                <Button key={k} isFullWidth>
                                   <Link href={m.links[k]}>
                                     {k}
                                   </Link>

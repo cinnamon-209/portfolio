@@ -1,4 +1,13 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from '@chakra-ui/react'
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Image
+} from '@chakra-ui/react'
 import {useState} from "react";
 import {BlogPost} from "../models/dtos";
 
@@ -26,7 +35,7 @@ export default function Project(props: any) {
         size="4xl"
       >
         <ModalOverlay />
-        <ModalContent> 
+        <ModalContent>
           <ModalHeader>{projectData.title}</ModalHeader>
           <ModalCloseButton />
             <ModalBody>
