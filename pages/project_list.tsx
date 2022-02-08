@@ -36,13 +36,12 @@ export default function ProjectList(props : any) {
                   props.content.map((m : BlogPost) =>
                   <GridItem bg='dark' key={m.title}>
                         <Box maxW='sm' borderWidth='2px'   borderRadius='lg' p='1em' boxShadow='lg' overflow='hidden' onClick={() => openProject(m)} _hover={{ bg: "teal.600" }} style={{cursor: 'pointer'}}>
-                            {/*<Image src={m.heroImage.url} alt={m.title} />*/}
+                            <Image src={m.heroImage.url} alt={m.title} width={'346px'} height={'231px'} objectFit={'contain'}/>
                             <Box
                                 m='1'
                                 fontWeight='semi-bold'
                                 as='h4'
                                 lineHeight='tight'
-                                // isTruncated
                             >
                               {m.title}
                             </Box>
