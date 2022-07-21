@@ -60,13 +60,6 @@ return (
 
     <Center pt='1em' pb='1em' >
       <a 
-      href={homePageData.linkedin}
-      target="_blank"
-      rel="noopener noreferrer"
-      >
-        <FontAwesomeIcon icon={faLinkedin} size="10x" className={styles.logo}/>
-      </a>
-      <a 
       href={homePageData.github}
       target="_blank"
       rel="noopener noreferrer"
