@@ -10,7 +10,6 @@ import client from "../apollo/apollo-client";
 import {BlogPost, Category} from '../models/dtos';
 
 export default function ProjectPage(data : any) {
-  console.log(data )
   const [categories, setCategories] = useState<Category[] | undefined >(undefined)
   const [blogPosts, setBlogPosts] = useState<BlogPost[] | undefined >(undefined)
   const [projectType, setProjectType] = useState<string | undefined | null>("");

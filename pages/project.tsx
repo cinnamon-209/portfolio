@@ -12,7 +12,6 @@ import {useState} from "react";
 import {BlogPost} from "../models/dtos";
 
 export default function Project(props: any) {
-  console.log(props)
   const [projectData, setProjectData ] = useState<undefined | null | BlogPost>(undefined)
   const onCloseModal = () => {
     props.closeModal(false);
